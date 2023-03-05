@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import Layout from './Layout';
 const MainPage = React.lazy(() => import('pages/Main'));
 const PuzzleListPage = React.lazy(() => import('pages/PuzzleList'));
 const PuzzleDetailPage = React.lazy(() => import('pages/PuzzleDetail'));
@@ -10,10 +11,12 @@ function Router() {
   return (
     <Suspense fallback={<div></div>}>
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/puzzle" element={<PuzzleListPage />} />
-        <Route path="/puzzle/:id" element={<PuzzleDetailPage />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/puzzle" element={<PuzzleListPage />} />
+          <Route path="/puzzle/:id" element={<PuzzleDetailPage />} />
+        </Route>
         <Route path="/puzzle/:id/play" element={<PuzzlePlayPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
