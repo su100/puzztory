@@ -14,11 +14,11 @@ function Router() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<MainPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/login" element={<LoginPage />} />
           <Route path="/puzzle" element={<PuzzleListPage />} />
           <Route path="/puzzle/:id" element={<PuzzleDetailPage />} />
         </Route>
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/puzzle/:id/play" element={<PuzzlePlayPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
