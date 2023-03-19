@@ -1,4 +1,5 @@
 import { ApiClient } from 'utils/api';
+import { MessageRes } from './type';
 
 export const login = (data: LoginReq) =>
   ApiClient.post<LoginRes>('/account/login', data);
@@ -32,21 +33,21 @@ export interface SignUpValidateReq {
   email: string;
 }
 
-type SignUpValidateRes = {
+interface SignUpValidateRes {
+  result: 'success';
+}
+
+export type SignUpValidateErrRes = {
   [key in keyof SignUpValidateReq]: string[];
 };
 
 interface SignUpCheckReq extends Omit<SignUpValidateReq, 'password1'> {}
 
-interface SignUpCheckRes {
-  message: string;
-}
+interface SignUpCheckRes extends MessageRes {}
 
 export interface SignUpValidateTokenReq {
   email: string;
   one_time_token: string;
 }
 
-interface SignUpValidateTokenRes {
-  message: string;
-}
+export interface SignUpValidateTokenRes extends MessageRes {}

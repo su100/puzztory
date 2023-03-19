@@ -4,16 +4,16 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import {
   signUpCheck,
   signUpValidate,
+  SignUpValidateErrRes,
   SignUpValidateReq,
+  signUpValidateToken,
   SignUpValidateTokenReq,
 } from 'services/auth';
 import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { MessageRes } from 'services/type';
 
 interface FormStateType extends SignUpValidateReq, SignUpValidateTokenReq {}
-type FormErrorStateType = {
-  [K in keyof SignUpValidateReq]: SignUpValidateReq[K][];
-};
-
 function SignupPage() {
   const [formState, setFormState] = useState<FormStateType>({
     username: '',
@@ -23,9 +23,9 @@ function SignupPage() {
     email: '',
     one_time_token: '',
   });
-  const [formErrorState, setFormErrorState] = useState<FormErrorStateType>();
+  const [formErrorState, setFormErrorState] = useState<SignUpValidateErrRes>();
   const [isChecked, setIsChecked] = useState(false);
-
+  const navigate = useNavigate();
   const { mutate: sendCode } = useMutation(signUpCheck, {
     onSuccess: () => {
       setIsChecked(true);
@@ -36,12 +36,22 @@ function SignupPage() {
   const { mutate: validateForm } = useMutation(signUpValidate, {
     onSuccess: () => {
       const { password1, ...rest } = formState;
+      setFormErrorState(undefined);
       sendCode(rest);
     },
-    onError: (e: AxiosError) => {
-      console.log(e.code);
-      // TODO: 에러 key에 따라 input에 error field 추가
-      console.log('error');
+    onError: (e: AxiosError<SignUpValidateErrRes>) => {
+      console.log('error:', e);
+      setFormErrorState(e.response?.data);
+    },
+  });
+
+  const { mutate: validateToken } = useMutation(signUpValidateToken, {
+    onSuccess: (res) => {
+      alert(res.message);
+      navigate('/login');
+    },
+    onError: (e: AxiosError<MessageRes>) => {
+      alert(e.response?.data.message);
     },
   });
 
@@ -54,6 +64,15 @@ function SignupPage() {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormState((s) => ({ ...s, [name]: value }));
+  };
+
+  const handleCodeSubmit = () => {
+    const { email, one_time_token } = formState;
+    if (!one_time_token) {
+      alert('인증 번호를 입력해주세요.');
+      return;
+    }
+    validateToken({ email, one_time_token });
   };
 
   return (
@@ -116,7 +135,7 @@ function SignupPage() {
             onChange={handleInputChange}
             placeholder="인증번호"
           />
-          <button>확인</button>
+          <button onClick={handleCodeSubmit}>확인</button>
         </div>
       )}
     </div>
