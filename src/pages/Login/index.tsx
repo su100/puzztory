@@ -1,5 +1,9 @@
 import { useEffect, FormEvent, useState, ChangeEvent } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
+import { useMutation } from 'react-query';
+import Input from 'components/Input';
+import { login, LoginErrRes, LoginRes } from 'services/auth';
 
 interface LoginStateType {
   username: string;
@@ -12,10 +16,27 @@ function LoginPage() {
     password: '',
   });
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const { mutate: loginUser } = useMutation(login, {
+    onSuccess: (res: LoginRes) => {
+      // TODO: 이전 페이지 이동
+      // TODO: accessToken 로그인 처리
+      console.log(res.accessToken);
+      navigate('/');
+    },
+    onError: (e: AxiosError<LoginErrRes>) => {
+      console.log('error:', e);
+      alert(e.response?.data.message);
+    },
+  });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert('제출');
+    const { username, password } = state;
+    if (username && password) {
+      loginUser(state);
+    }
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,15 +54,13 @@ function LoginPage() {
     <div>
       <h1 className="m-10 text-xl">로그인</h1>
       <form className="flex flex-col m-10 gap-2" onSubmit={handleSubmit}>
-        <input
-          className="border w-40 border-neutral-500"
+        <Input
           type="text"
           name="username"
           onChange={handleInputChange}
           placeholder="아이디"
         />
-        <input
-          className="border w-40 border-neutral-500 "
+        <Input
           type="password"
           name="password"
           onChange={handleInputChange}

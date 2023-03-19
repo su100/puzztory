@@ -21,9 +21,11 @@ interface LoginReq {
   password: string;
 }
 
-interface LoginRes {
+export interface LoginRes {
   accessToken: string;
 }
+
+export interface LoginErrRes extends MessageRes {}
 
 export interface SignUpValidateReq {
   username: string;
@@ -33,7 +35,7 @@ export interface SignUpValidateReq {
   email: string;
 }
 
-interface SignUpValidateRes {
+export interface SignUpValidateRes {
   result: 'success';
 }
 
