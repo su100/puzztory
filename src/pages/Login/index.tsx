@@ -3,7 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
 import Input from 'components/Input';
-import { login, LoginErrRes, LoginRes } from 'services/auth';
+import { useAuthStore } from 'utils/auth';
+import { requestLogin, LoginErrRes, LoginRes } from 'services/auth';
 
 interface LoginStateType {
   username: string;
@@ -16,14 +17,16 @@ function LoginPage() {
     password: '',
   });
   const location = useLocation();
+  const locationState = location.state;
   const navigate = useNavigate();
+  const { login } = useAuthStore();
 
-  const { mutate: loginUser } = useMutation(login, {
+  const { mutate: loginUser } = useMutation(requestLogin, {
     onSuccess: (res: LoginRes) => {
       // TODO: 이전 페이지 이동
       // TODO: accessToken 로그인 처리
-      console.log(res.accessToken);
-      navigate('/');
+      login(res.accessToken);
+      navigate(locationState?.redirectPath || '/', { replace: true });
     },
     onError: (e: AxiosError<LoginErrRes>) => {
       console.log('error:', e);

@@ -1,7 +1,7 @@
 import { ApiClient } from 'utils/api';
 import { MessageRes } from './type';
 
-export const login = (data: LoginReq) =>
+export const requestLogin = (data: LoginReq) =>
   ApiClient.post<LoginRes>('/account/login', data);
 
 export const signUpValidate = (data: SignUpValidateReq) =>
