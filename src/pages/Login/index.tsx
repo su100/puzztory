@@ -1,5 +1,5 @@
 import { useEffect, FormEvent, useState, ChangeEvent } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
 import Input from 'components/Input';
@@ -54,9 +54,9 @@ function LoginPage() {
   }, [location]);
 
   return (
-    <div>
-      <h1 className="m-10 text-xl">로그인</h1>
-      <form className="flex flex-col m-10 gap-2" onSubmit={handleSubmit}>
+    <div className="m-10 flex flex-col gap-4">
+      <h1 className="text-xl">로그인</h1>
+      <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <Input
           type="text"
           name="username"
@@ -69,8 +69,18 @@ function LoginPage() {
           onChange={handleInputChange}
           placeholder="비밀번호"
         />
-        <input className="w-20 bg-slate-600" type="submit" value="로그인" />
+        <input
+          className="mt-3 w-[100%] h-9 bg-slate-300 rounded-[2px]"
+          type="submit"
+          value="로그인"
+        />
       </form>
+      <Link
+        to="/signup"
+        className="w-[100%] h-9 bg-slate-200 text-center leading-9 rounded-[2px]"
+      >
+        회원가입
+      </Link>
     </div>
   );
 }
