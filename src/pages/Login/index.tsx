@@ -5,6 +5,8 @@ import { useMutation } from 'react-query';
 import Input from 'components/Input';
 import { useAuthStore } from 'utils/auth';
 import { requestLogin, LoginErrRes, LoginRes } from 'services/auth';
+import Button from 'components/Button';
+import LinkButton from 'components/LinkButton';
 
 interface LoginStateType {
   username: string;
@@ -69,18 +71,13 @@ function LoginPage() {
           onChange={handleInputChange}
           placeholder="비밀번호"
         />
-        <input
-          className="mt-3 w-[100%] h-9 bg-slate-300 rounded-[2px]"
-          type="submit"
-          value="로그인"
-        />
+        <Button className="mt-3" type="submit">
+          로그인
+        </Button>
       </form>
-      <Link
-        to="/signup"
-        className="w-[100%] h-9 bg-slate-200 text-center leading-9 rounded-[2px]"
-      >
+      <LinkButton to="/signup" className="bg-slate-200">
         회원가입
-      </Link>
+      </LinkButton>
     </div>
   );
 }
