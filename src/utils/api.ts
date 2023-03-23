@@ -1,19 +1,29 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { useAuthStore } from './auth';
 
 const baseURL = process.env.REACT_APP_API_BASE_URL;
-
-const headerOptions = {
-  Authorization: localStorage.getItem('token'),
-};
 
 const ApiClientBase = axios.create({
   baseURL: `${baseURL}/`,
 });
 
 const UserClientBase = axios.create({
-  baseURL: baseURL + `/community/v1`,
-  headers: headerOptions,
+  baseURL: `${baseURL}/`,
 });
+
+const handleCheckAccessToken = <T extends AxiosRequestConfig>(config: T): T => {
+  let { accessToken } = useAuthStore.getState();
+  config = config ?? {};
+  config.headers = config.headers ?? { 'Content-Type': 'application/json' };
+
+  if (accessToken) {
+    config.headers.Authorization = `jwt ${accessToken}`;
+  }
+
+  return config;
+};
+
+UserClientBase.interceptors.request.use(handleCheckAccessToken);
 
 const ApiClient = {
   get: <T>(url: string, params?: any, config?: AxiosRequestConfig) =>

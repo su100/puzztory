@@ -4,22 +4,22 @@ import Layout from './Layout';
 const MainPage = React.lazy(() => import('pages/Main'));
 const SignupPage = React.lazy(() => import('pages/Signup'));
 const LoginPage = React.lazy(() => import('pages/Login'));
-const PuzzleListPage = React.lazy(() => import('pages/PuzzleList'));
-const PuzzleDetailPage = React.lazy(() => import('pages/PuzzleDetail'));
-const PuzzlePlayPage = React.lazy(() => import('pages/PuzzlePlay'));
+const StoryList = React.lazy(() => import('pages/StoryList'));
+const StoryDetail = React.lazy(() => import('pages/StoryDetail'));
+const StoryPlay = React.lazy(() => import('pages/StoryPlay'));
 
 function Router() {
   return (
     <Suspense fallback={<div></div>}>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/puzzle" element={<PuzzleListPage />} />
-          <Route path="/puzzle/:id" element={<PuzzleDetailPage />} />
-        </Route>
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/puzzle/:id/play" element={<PuzzlePlayPage />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/story" element={<StoryList />} />
+          <Route path="/story/:id" element={<StoryDetail />} />
+        </Route>
+        <Route path="/story/:id/play" element={<StoryPlay />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>

@@ -5,7 +5,7 @@ function Header() {
   const location = useLocation();
   const { isLoggedIn, logout } = useAuthStore();
   return (
-    <header>
+    <header className="flex justify-between items-center">
       <Link to="/">메인</Link>
       {isLoggedIn ? (
         <button onClick={logout}>로그아웃</button>

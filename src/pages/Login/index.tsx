@@ -1,10 +1,12 @@
 import { useEffect, FormEvent, useState, ChangeEvent } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
 import Input from 'components/Input';
 import { useAuthStore } from 'utils/auth';
 import { requestLogin, LoginErrRes, LoginRes } from 'services/auth';
+import Button from 'components/Button';
+import LinkButton from 'components/LinkButton';
 
 interface LoginStateType {
   username: string;
@@ -54,9 +56,9 @@ function LoginPage() {
   }, [location]);
 
   return (
-    <div>
-      <h1 className="m-10 text-xl">로그인</h1>
-      <form className="flex flex-col m-10 gap-2" onSubmit={handleSubmit}>
+    <div className="m-10 flex flex-col gap-4">
+      <h1 className="text-xl">로그인</h1>
+      <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <Input
           type="text"
           name="username"
@@ -69,8 +71,13 @@ function LoginPage() {
           onChange={handleInputChange}
           placeholder="비밀번호"
         />
-        <input className="w-20 bg-slate-600" type="submit" value="로그인" />
+        <Button className="mt-3" type="submit">
+          로그인
+        </Button>
       </form>
+      <LinkButton to="/signup" className="bg-slate-200">
+        회원가입
+      </LinkButton>
     </div>
   );
 }
