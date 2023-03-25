@@ -1,13 +1,9 @@
 import StoryCard from 'components/StoryCard';
-import { ChangeEvent, FormEvent, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { getStoryList, GET_STORY_LIST } from 'services/story';
 
 function MainPage() {
-  const [search, setSearch] = useState('');
-  const { data } = useInfiniteQuery([...GET_STORY_LIST, search], () =>
-    getStoryList({ search }),
-  );
+  const { data } = useInfiniteQuery(GET_STORY_LIST, () => getStoryList());
 
   return (
     <>
@@ -17,7 +13,7 @@ function MainPage() {
           className="px-2 py-1 w-[100%] rounded-lg border-gray-300 border"
           placeholder="검색어를 입력하세요(제목, 내용)"
         />
-        <h2 className="font-bold text-lg my-2">Puzzle</h2>
+        <h2 className="font-bold text-lg my-2">전체 Puzzle</h2>
         {data?.pages.map((p) =>
           p.stories.map((s) => <StoryCard key={s.id} story={s} />),
         )}
