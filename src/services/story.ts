@@ -24,7 +24,7 @@ interface GetStroyListRes {
   stories: IStory[];
 }
 
-interface IStory {
+export interface IStory {
   id: number;
   title: string;
   description: string;
