@@ -69,11 +69,11 @@ function LoginPage() {
           onChange={handleInputChange}
           placeholder="비밀번호"
         />
-        <button className="button mt-3" type="submit">
+        <button className="button mt-3 bg-slate-300" type="submit">
           로그인
         </button>
       </form>
-      <Link to="/signup" className="link-button bg-slate-200">
+      <Link to="/signup" className="link-button bg-slate-400">
         회원가입
       </Link>
     </div>
