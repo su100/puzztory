@@ -2,11 +2,9 @@ import { useEffect, FormEvent, useState, ChangeEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
-import Input from 'components/Input';
 import { useAuthStore } from 'utils/auth';
+import Input from 'components/Input';
 import { requestLogin, LoginErrRes, LoginRes } from 'services/auth';
-import Button from 'components/Button';
-import LinkButton from 'components/LinkButton';
 
 interface LoginStateType {
   username: string;
@@ -71,13 +69,13 @@ function LoginPage() {
           onChange={handleInputChange}
           placeholder="비밀번호"
         />
-        <Button className="mt-3" type="submit">
+        <button className="button mt-3 bg-slate-300" type="submit">
           로그인
-        </Button>
+        </button>
       </form>
-      <LinkButton to="/signup" className="bg-slate-200">
+      <Link to="/signup" className="link-button bg-slate-400">
         회원가입
-      </LinkButton>
+      </Link>
     </div>
   );
 }
