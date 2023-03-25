@@ -1,6 +1,8 @@
 import { useMutation } from 'react-query';
-import Input from 'components/Input';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
+import Input from 'components/Input';
 import {
   signUpCheck,
   signUpValidate,
@@ -9,8 +11,6 @@ import {
   signUpValidateToken,
   SignUpValidateTokenReq,
 } from 'services/auth';
-import { AxiosError } from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { MessageRes } from 'services/type';
 
 interface FormStateType extends SignUpValidateReq, SignUpValidateTokenReq {}

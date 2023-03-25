@@ -1,4 +1,3 @@
-import LinkButton from 'components/LinkButton';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from 'react-query';
 
@@ -97,9 +96,9 @@ function StoryDetailPage() {
         </div>
         <p className="mt-3 text-xs">{data.description}</p>
         {/* TODO: 말줄임 넣고 더보기 */}
-        <LinkButton to={`/story/${id}/play`} className="mt-4">
+        <Link to={`/story/${id}/play`} className="link-button mt-4">
           플레이
-        </LinkButton>
+        </Link>
       </div>
     </div>
   );
