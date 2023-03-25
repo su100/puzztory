@@ -77,7 +77,7 @@ function StoryDetailPage() {
             <span className="text-xs">플레이 수: {data.played_count}</span>
             <span className="mt-1 text-xs">난이도: {data.level}</span>
           </div>
-          <div className="flex flex-row  gap-2">
+          <div className="flex flex-row gap-2">
             <div className="text-center">
               <img src={pointIcon} alt="point" />
               <span className="text-xs">{data.playing_point}p</span>
