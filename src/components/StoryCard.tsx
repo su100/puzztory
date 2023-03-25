@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { IStory } from 'services/story';
 
 interface StoryCardProps {
@@ -5,7 +6,7 @@ interface StoryCardProps {
 }
 function StoryCard({ story }: StoryCardProps) {
   return (
-    <div className="flex align-center gap-2">
+    <Link to={`/story/${story.id}`} className="flex align-center gap-2">
       <img
         className="rounded-[5px]"
         src={story.background_image}
@@ -17,7 +18,7 @@ function StoryCard({ story }: StoryCardProps) {
         <h3 className="font-bold text-sm">{story.title}</h3>
         <p className="text-xs">{story.description}</p>
       </div>
-    </div>
+    </Link>
   );
 }
 
