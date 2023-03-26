@@ -14,6 +14,9 @@ export const likeStory = (id: number) =>
 export const unlikeStory = (id: number) =>
   UserClient.delete(`/v1/story/${id}/like`);
 
+export const playStory = (id: number) =>
+  UserClient.get<ISheet>(`/v1/story/${id}/play`);
+
 interface GetStroyListReq {
   search?: string;
   page?: number;
@@ -40,4 +43,18 @@ interface IStoryDetail extends IStory {
   free_to_play_sheet_count: number;
   level: '상' | '중' | '하' | '?';
   is_liked: boolean;
+}
+
+// TODO: optional 체크, previous_sheet 인터페이스
+interface ISheet {
+  sheet_id: number;
+  title: string;
+  question: string;
+  image: string;
+  background_image: string;
+  previous_sheet_infos: { sheet_id: number; title: string }[];
+  next_sheet_id: number;
+  answer: string;
+  answer_reply: string;
+  is_solved: boolean;
 }
