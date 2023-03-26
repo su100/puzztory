@@ -55,7 +55,6 @@ function StoryPlayPage() {
       setIsWrong(false);
       setAnswerReply(r.answer_reply ?? '');
       openAnswerModal();
-      console.log('모달 띄우고 확인 누르면 다음 시트 가져오기');
     },
     onError: (e: AxiosError<MessageRes>) => {
       console.log('error:', e.response?.data.message);
@@ -67,7 +66,6 @@ function StoryPlayPage() {
   };
 
   const handleSubmitAnswer = () => {
-    console.log('제출', answer);
     if (answer.trim() === '') {
       alert('정답을 입력해주세요');
       return;
@@ -89,7 +87,6 @@ function StoryPlayPage() {
   };
 
   const handleNextSheet = () => {
-    console.log('handleNextSheet');
     if (sheet?.next_sheet_id) {
       setSheetId(sheet?.next_sheet_id);
       return;

@@ -52,7 +52,6 @@ interface IStoryDetail extends IStory {
   is_liked: boolean;
 }
 
-// TODO: optional 체크, previous_sheet 인터페이스
 export interface ISheet {
   sheet_id: number;
   title: string;
