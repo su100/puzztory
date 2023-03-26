@@ -59,11 +59,16 @@ export interface ISheet {
   question: string;
   image: string;
   background_image: string;
-  previous_sheet_infos: { sheet_id: number; title: string }[];
+  previous_sheet_infos: IPreviousSheet[];
   next_sheet_id: number;
   answer: string;
   answer_reply: string;
   is_solved: boolean;
+}
+
+interface IPreviousSheet {
+  sheet_id: number;
+  title: string;
 }
 
 interface SubmitSheetAnswerReq {
