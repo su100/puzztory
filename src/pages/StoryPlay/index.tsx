@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from 'react-query';
 import { AxiosError } from 'axios';
 import useModal from 'utils/hooks/useModal';
@@ -23,6 +23,8 @@ function StoryPlayPage() {
   const [answer, setAnswer] = useState('');
   const [answerReply, setAnswerReply] = useState('');
   const [isWrong, setIsWrong] = useState(false);
+
+  const navigate = useNavigate();
 
   const {
     isModalOpen: isAnswerModalOpen,
@@ -51,6 +53,7 @@ function StoryPlayPage() {
         return;
       }
       setIsWrong(false);
+      setAnswerReply(r.answer_reply ?? '');
       openAnswerModal();
       console.log('모달 띄우고 확인 누르면 다음 시트 가져오기');
     },
@@ -87,7 +90,11 @@ function StoryPlayPage() {
 
   const handleNextSheet = () => {
     console.log('handleNextSheet');
-    setSheetId(sheet?.next_sheet_id);
+    if (sheet?.next_sheet_id) {
+      setSheetId(sheet?.next_sheet_id);
+      return;
+    }
+    navigate(`/story/${id}`);
   };
 
   useEffect(() => {
@@ -139,17 +146,20 @@ function StoryPlayPage() {
             이전
           </button>
         )}
-        <button
-          className="w-[110px] px-2 py-1 rounded-md border border-slate-400"
-          onClick={handleNextSheet}
-        >
-          다음
-        </button>
+        {sheet?.next_sheet_id && (
+          <button
+            className="w-[110px] px-2 py-1 rounded-md border border-slate-400"
+            onClick={handleNextSheet}
+          >
+            다음
+          </button>
+        )}
       </div>
       {isAnswerModalOpen && (
         <AnswerModal
           answerReply={answerReply}
           answer={answer}
+          isEnd={!sheet?.next_sheet_id}
           handleClose={closeAnswerModal}
           handleNextSheet={handleNextSheet}
         />

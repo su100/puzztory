@@ -3,6 +3,7 @@ import PlayModal from './PlayModal';
 interface AnswerModalProps {
   answerReply: string;
   answer: string;
+  isEnd: boolean;
   handleClose: () => void;
   handleNextSheet: () => void;
 }
@@ -10,6 +11,7 @@ interface AnswerModalProps {
 function AnswerModal({
   answerReply,
   answer,
+  isEnd,
   handleClose,
   handleNextSheet,
 }: AnswerModalProps) {
@@ -29,7 +31,7 @@ function AnswerModal({
           className="mx-auto px-3 py-1 rounded-md w-[100px] text-sm bg-slate-300"
           onClick={handleNext}
         >
-          다음
+          {isEnd ? '결과 확인' : '다음'}
         </button>
       </div>
     </PlayModal>
