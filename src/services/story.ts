@@ -1,6 +1,7 @@
 import { UserClient } from 'utils/api';
 
 export const GET_STORY_LIST = ['story'];
+export const GET_STORY_SHEET = ['story', 'sheet'];
 
 export const getStoryList = (data?: GetStroyListReq) =>
   UserClient.get<GetStroyListRes>(`/v1/story/`, data);
@@ -16,6 +17,12 @@ export const unlikeStory = (id: number) =>
 
 export const playStory = (id: number) =>
   UserClient.get<ISheet>(`/v1/story/${id}/play`);
+
+export const getStorySheet = (id: number) =>
+  UserClient.get<ISheet>(`/v1/story/sheet/${id}/play`);
+
+export const submitSheetAnswer = (data: SubmitSheetAnswerReq) =>
+  UserClient.post<SubmitSheetAnswerRes>(`/v1/story/submit_answer`, data);
 
 interface GetStroyListReq {
   search?: string;
@@ -46,7 +53,7 @@ interface IStoryDetail extends IStory {
 }
 
 // TODO: optional 체크, previous_sheet 인터페이스
-interface ISheet {
+export interface ISheet {
   sheet_id: number;
   title: string;
   question: string;
@@ -57,4 +64,15 @@ interface ISheet {
   answer: string;
   answer_reply: string;
   is_solved: boolean;
+}
+
+interface SubmitSheetAnswerReq {
+  sheet_id: number;
+  answer: string;
+}
+
+export interface SubmitSheetAnswerRes {
+  is_valid: boolean;
+  next_sheet_id: number | null;
+  answer_reply: string | null;
 }
