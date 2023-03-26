@@ -57,12 +57,12 @@ export interface ISheet {
   sheet_id: number;
   title: string;
   question: string;
-  image: string;
-  background_image: string;
+  image: string | null;
+  background_image: string | null;
   previous_sheet_infos: IPreviousSheet[];
-  next_sheet_id: number;
-  answer: string;
-  answer_reply: string;
+  next_sheet_id: number | null;
+  answer: string | null;
+  answer_reply: string | null;
   is_solved: boolean;
 }
 
