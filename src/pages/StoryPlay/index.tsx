@@ -134,8 +134,8 @@ function StoryPlayPage() {
   return (
     <div>
       <div className="px-2 py-3 text-right">
-        <button onClick={openAnswerModal}>
-          <img src={hintIcon} alt="hint" />
+        <button onClick={openHintModal}>
+          <img src={hintIcon} width="32" height="32" alt="hint" />
         </button>
       </div>
       <QuestionSheet sheet={sheet} />
