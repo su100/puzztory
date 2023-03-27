@@ -5,6 +5,7 @@ import { AxiosError } from 'axios';
 import useModal from 'utils/hooks/useModal';
 import QuestionSheet from './components/QuestionSheet';
 import AnswerModal from './components/AnswerModal';
+import hintIcon from 'assets/img/hint.png';
 import { MessageRes } from 'services/type';
 import {
   getStorySheet,
@@ -13,6 +14,8 @@ import {
   submitSheetAnswer,
   SubmitSheetAnswerRes,
 } from 'services/story';
+import HintModal from './components/HintModal';
+import { buyHint, getHintList, GET_HINT, IHint } from 'services/hint';
 
 const STALE_TIME = 5 * 1000;
 
@@ -23,6 +26,7 @@ function StoryPlayPage() {
   const [answer, setAnswer] = useState('');
   const [answerReply, setAnswerReply] = useState('');
   const [isWrong, setIsWrong] = useState(false);
+  const [hintList, setHintList] = useState<IHint[]>();
 
   const navigate = useNavigate();
 
@@ -30,6 +34,12 @@ function StoryPlayPage() {
     isModalOpen: isAnswerModalOpen,
     openModal: openAnswerModal,
     closeModal: closeAnswerModal,
+  } = useModal();
+
+  const {
+    isModalOpen: isHintModalOpen,
+    openModal: openHintModal,
+    closeModal: closeHintModal,
   } = useModal();
 
   const { data: startSheet } = useQuery(
@@ -44,7 +54,28 @@ function StoryPlayPage() {
     { staleTime: STALE_TIME, enabled: !!sheetId },
   );
 
+  const { mutate: purchaseHint } = useMutation(
+    (id: number) => buyHint(sheet!.sheet_id, id),
+    {
+      onSuccess: (r: IHint) => {
+        setHintList((s) => s?.map((hint) => (hint.id === r.id ? r : hint)));
+      },
+      onError: (e: AxiosError<MessageRes>) => {
+        console.log('error:', e.message);
+      },
+    },
+  );
+
   const sheet = useMemo(() => data || startSheet, [data, startSheet]);
+
+  const { data: hint } = useQuery(
+    [...GET_HINT, sheetId],
+    () => getHintList(sheet!.sheet_id), // sheetId 사용시 첫 시트에서는 빈값
+    {
+      staleTime: STALE_TIME,
+      enabled: !!sheet && isHintModalOpen,
+    },
+  );
 
   const { mutate: submitAnswer } = useMutation(submitSheetAnswer, {
     onSuccess: (r: SubmitSheetAnswerRes) => {
@@ -71,13 +102,8 @@ function StoryPlayPage() {
       return;
     }
 
-    const sheet_id = sheet?.sheet_id || startSheet?.sheet_id;
-    if (!sheet_id) return;
-    submitAnswer({ sheet_id, answer });
-  };
-
-  const handleAnswerModal = () => {
-    openAnswerModal();
+    if (!sheet?.sheet_id) return;
+    submitAnswer({ sheet_id: sheet?.sheet_id, answer });
   };
 
   const handlePrevSheet = () => {
@@ -88,11 +114,15 @@ function StoryPlayPage() {
 
   const handleNextSheet = () => {
     if (sheet?.next_sheet_id) {
-      setSheetId(sheet?.next_sheet_id);
+      setSheetId(sheet.next_sheet_id);
       return;
     }
     navigate(`/story/${id}`);
   };
+
+  useEffect(() => {
+    setHintList(hint?.user_sheet_hint_infos);
+  }, [hint]);
 
   useEffect(() => {
     if (sheet) {
@@ -103,7 +133,11 @@ function StoryPlayPage() {
 
   return (
     <div>
-      <div className="px-2 py-3">hint icon</div>
+      <div className="px-2 py-3 text-right">
+        <button onClick={openAnswerModal}>
+          <img src={hintIcon} alt="hint" />
+        </button>
+      </div>
       <QuestionSheet sheet={sheet} />
       <div className="p-8 flex flex-col items-center justify-center gap-5 text-center">
         <input
@@ -116,7 +150,7 @@ function StoryPlayPage() {
         {sheet?.is_solved ? (
           <button
             className="w-[110px] px-2 py-1 bg-slate-400 rounded-md"
-            onClick={handleAnswerModal}
+            onClick={openAnswerModal}
           >
             답변 확인
           </button>
@@ -159,6 +193,13 @@ function StoryPlayPage() {
           isEnd={!sheet?.next_sheet_id}
           handleClose={closeAnswerModal}
           handleNextSheet={handleNextSheet}
+        />
+      )}
+      {isHintModalOpen && (
+        <HintModal
+          hintList={hintList}
+          purchaseHint={purchaseHint}
+          handleClose={closeHintModal}
         />
       )}
     </div>
