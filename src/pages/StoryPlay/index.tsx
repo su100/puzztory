@@ -67,6 +67,7 @@ function StoryPlayPage() {
       },
       onError: (e: AxiosError<MessageRes>) => {
         console.log('error:', e.message);
+        alert(e.response?.data.message);
       },
     },
   );
