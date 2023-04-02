@@ -22,7 +22,7 @@ const STALE_TIME = 5 * 1000;
 // TODO: 최적화 memo
 function StoryPlayPage() {
   const { id } = useParams();
-  const [sheetId, setSheetId] = useState<number>();
+  const [sheetId, setSheetId] = useState<number | null>();
   const [answer, setAnswer] = useState('');
   const [answerReply, setAnswerReply] = useState('');
   const [isWrong, setIsWrong] = useState(false);
@@ -51,7 +51,7 @@ function StoryPlayPage() {
   const { data } = useQuery(
     [...GET_STORY_SHEET, id, sheetId],
     () => getStorySheet(sheetId!),
-    { staleTime: STALE_TIME, enabled: !!sheetId },
+    { staleTime: STALE_TIME, enabled: !!sheetId, keepPreviousData: true },
   );
 
   const { mutate: purchaseHint } = useMutation(
@@ -85,6 +85,7 @@ function StoryPlayPage() {
       }
       setIsWrong(false);
       setAnswerReply(r.answer_reply ?? '');
+      setSheetId(r.next_sheet_id);
       openAnswerModal();
     },
     onError: (e: AxiosError<MessageRes>) => {
