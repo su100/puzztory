@@ -1,4 +1,3 @@
-import { replaceNewline } from 'utils/common';
 import PlayModal from './PlayModal';
 
 interface AnswerModalProps {
@@ -23,8 +22,8 @@ function AnswerModal({
 
   return (
     <PlayModal handleClose={handleClose}>
-      <div className="p-4 border border-slate-300 rounded-sm">
-        {replaceNewline(answerReply)}
+      <div className="whitespace-pre-wrap p-4 border border-slate-300 rounded-sm">
+        {answerReply}
       </div>
       <div className="text-center">
         <p className="my-4 text-sm text-green-600 font-bold">정답: {answer}</p>
