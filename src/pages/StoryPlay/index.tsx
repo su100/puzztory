@@ -85,7 +85,7 @@ function StoryPlayPage() {
       }
       setIsWrong(false);
       setAnswerReply(r.answer_reply ?? '');
-      setSheetId(r.next_sheet_id);
+      // setSheetId(r.next_sheet_id);
       openAnswerModal();
     },
     onError: (e: AxiosError<MessageRes>) => {
