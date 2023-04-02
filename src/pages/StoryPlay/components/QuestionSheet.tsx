@@ -1,3 +1,4 @@
+import { replaceNewline } from 'utils/common';
 import { ISheet } from 'services/story';
 
 interface SheetProps {
@@ -26,7 +27,7 @@ function QuestionSheet({ sheet }: SheetProps) {
         )}
       </div>
       <h2 className="p-2 min-h-10 bg-slate-200 font-bold border-slate-300 border-t border-b">
-        {sheet?.question}
+        {replaceNewline(sheet?.question || '')}
       </h2>
     </>
   );
