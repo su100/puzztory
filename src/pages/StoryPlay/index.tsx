@@ -17,6 +17,10 @@ import {
 import HintModal from './components/HintModal';
 import { buyHint, getHintList, GET_HINT, IHint } from 'services/hint';
 
+const BUTTON_STYLE = 'w-[110px] px-2 py-1 bg-slate-400 rounded-md';
+const OUTLINE_BUTTON_STYLE =
+  'w-[110px] px-2 py-1 rounded-md rounded-md border border-slate-400';
+
 const STALE_TIME = 5 * 1000;
 
 // TODO: 최적화 memo
@@ -151,17 +155,11 @@ function StoryPlayPage() {
           placeholder="정답"
         />
         {sheet?.is_solved ? (
-          <button
-            className="w-[110px] px-2 py-1 bg-slate-400 rounded-md"
-            onClick={openAnswerModal}
-          >
+          <button className={BUTTON_STYLE} onClick={openAnswerModal}>
             답변 확인
           </button>
         ) : (
-          <button
-            className="w-[110px] px-2 py-1 bg-slate-400 rounded-md"
-            onClick={handleSubmitAnswer}
-          >
+          <button className={BUTTON_STYLE} onClick={handleSubmitAnswer}>
             확인
           </button>
         )}
@@ -173,18 +171,12 @@ function StoryPlayPage() {
       </div>
       <div className="flex justify-center gap-3">
         {sheet?.previous_sheet_infos && (
-          <button
-            className="w-[110px] px-2 py-1rounded-md rounded-md border border-slate-400"
-            onClick={handlePrevSheet}
-          >
+          <button className={OUTLINE_BUTTON_STYLE} onClick={handlePrevSheet}>
             이전
           </button>
         )}
         {sheet?.next_sheet_id && (
-          <button
-            className="w-[110px] px-2 py-1 rounded-md border border-slate-400"
-            onClick={handleNextSheet}
-          >
+          <button className={OUTLINE_BUTTON_STYLE} onClick={handleNextSheet}>
             다음
           </button>
         )}
