@@ -24,8 +24,9 @@ function StoryPlayPage() {
   const { id } = useParams();
   const [sheetId, setSheetId] = useState<number | null>();
   const [answer, setAnswer] = useState('');
-  const [answerReply, setAnswerReply] = useState('');
   const [isWrong, setIsWrong] = useState(false);
+  const [answerReply, setAnswerReply] = useState('');
+  const [nextSheetId, setNextSheetId] = useState<number | null>(null);
   const [hintList, setHintList] = useState<IHint[]>();
 
   const navigate = useNavigate();
@@ -85,7 +86,7 @@ function StoryPlayPage() {
       }
       setIsWrong(false);
       setAnswerReply(r.answer_reply ?? '');
-      // setSheetId(r.next_sheet_id);
+      setNextSheetId(r.next_sheet_id);
       openAnswerModal();
     },
     onError: (e: AxiosError<MessageRes>) => {
@@ -114,8 +115,8 @@ function StoryPlayPage() {
   };
 
   const handleNextSheet = () => {
-    if (sheet?.next_sheet_id) {
-      setSheetId(sheet.next_sheet_id);
+    if (nextSheetId) {
+      setSheetId(nextSheetId);
       return;
     }
     navigate(`/story/${id}`);
@@ -129,6 +130,7 @@ function StoryPlayPage() {
     if (sheet) {
       setAnswer(sheet.answer || '');
       setAnswerReply(sheet.answer_reply || '');
+      setNextSheetId(sheet.next_sheet_id);
     }
   }, [sheet]);
 
@@ -191,7 +193,7 @@ function StoryPlayPage() {
         <AnswerModal
           answerReply={answerReply}
           answer={answer}
-          isEnd={!sheet?.next_sheet_id}
+          isEnd={!nextSheetId}
           handleClose={closeAnswerModal}
           handleNextSheet={handleNextSheet}
         />
