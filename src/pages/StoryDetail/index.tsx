@@ -67,9 +67,15 @@ function StoryDetailPage() {
 
   return (
     <div className="w-[100%]">
-      {data.background_image && (
-        <img src={data.background_image} alt={`${data.title} 배경 이미지`} />
-      )}
+      <div className="bg-slate-400">
+        {data.background_image && (
+          <img
+            className="mx-auto max-h-[300px]"
+            src={data.background_image}
+            alt={`${data.title} 배경 이미지`}
+          />
+        )}
+      </div>
       <div className="p-3">
         <h1 className="my-3 font-bold">{data.title}</h1>
         <div className="flex justify-between">
