@@ -54,8 +54,8 @@ function LoginPage() {
   }, [location]);
 
   return (
-    <div className="m-10 flex flex-col gap-4">
-      <h1 className="text-xl">로그인</h1>
+    <div className="mx-10 flex flex-col gap-4 pt-[50px]">
+      <h1 className="title">로그인</h1>
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <Input
           type="text"

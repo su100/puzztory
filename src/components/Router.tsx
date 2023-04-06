@@ -24,9 +24,9 @@ function Router() {
   return (
     <Suspense fallback={<div></div>}>
       <Routes>
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
         <Route element={<Layout />}>
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<MainPage />} />
           <Route path="/story" element={<StoryList />} />
           <Route path="/story/:id" element={<StoryDetail />} />

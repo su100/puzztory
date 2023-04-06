@@ -6,7 +6,7 @@ function Layout() {
   return (
     <div>
       <Header />
-      <main>
+      <main className="min-h-[calc(100vh-176px)]">
         <Outlet />
       </main>
       <Footer />

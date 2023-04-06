@@ -4,9 +4,10 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Pretendard Variable', Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI',
+    'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -16,11 +17,19 @@ code {
     monospace;
 }
 
+button {
+  font-weight: 500;
+}
+
+a {
+  font-weight: 500;
+}
+
 @layer utilities {
   .button {
     width: 100%;
     height: 2.25rem;
-    border-radius: 2px;
+    border-radius: 8px;
     cursor: pointer;
   }
   .input {
@@ -33,10 +42,15 @@ code {
   .link-button {
     width: 100%;
     height: 2.25rem;
-    border-radius: 2px;
+    border-radius: 8px;
     cursor: pointer;
     display: block;
     text-align: center;
     line-height: 2.25rem;
+  }
+  .title {
+    font-size: 1.875rem; /* 30px */
+    line-height: 2.25rem; /* 36px */
+    font-weight: bold;
   }
 }

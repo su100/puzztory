@@ -102,7 +102,10 @@ function StoryDetailPage() {
         </div>
         <p className="mt-3 text-xs">{data.description}</p>
         {/* TODO: 말줄임 넣고 더보기 */}
-        <Link to={`/story/${id}/play`} className="link-button mt-4">
+        <Link
+          to={`/story/${id}/play`}
+          className="link-button mt-4 bg-slate-300"
+        >
           플레이
         </Link>
       </div>
