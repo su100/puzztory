@@ -76,7 +76,7 @@ function SignupPage() {
   };
 
   return (
-    <div className="w-[90%] max-w-[800px] mx-auto">
+    <div className="w-[90%] max-w-[800px] mx-auto pt-[50px]">
       <h1 className="title">회원가입</h1>
       <form className="flex flex-col my-10 gap-4" onSubmit={handleSubmit}>
         <Input
