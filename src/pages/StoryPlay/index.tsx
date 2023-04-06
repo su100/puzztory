@@ -17,15 +17,20 @@ import {
 import HintModal from './components/HintModal';
 import { buyHint, getHintList, GET_HINT, IHint } from 'services/hint';
 
+const BUTTON_STYLE = 'w-[110px] px-2 py-1 bg-slate-400 rounded-md';
+const OUTLINE_BUTTON_STYLE =
+  'w-[110px] px-2 py-1 rounded-md rounded-md border border-slate-400';
+
 const STALE_TIME = 5 * 1000;
 
 // TODO: 최적화 memo
 function StoryPlayPage() {
   const { id } = useParams();
-  const [sheetId, setSheetId] = useState<number>();
+  const [sheetId, setSheetId] = useState<number | null>();
   const [answer, setAnswer] = useState('');
-  const [answerReply, setAnswerReply] = useState('');
   const [isWrong, setIsWrong] = useState(false);
+  const [answerReply, setAnswerReply] = useState('');
+  const [nextSheetId, setNextSheetId] = useState<number | null>(null);
   const [hintList, setHintList] = useState<IHint[]>();
 
   const navigate = useNavigate();
@@ -51,7 +56,7 @@ function StoryPlayPage() {
   const { data } = useQuery(
     [...GET_STORY_SHEET, id, sheetId],
     () => getStorySheet(sheetId!),
-    { staleTime: STALE_TIME, enabled: !!sheetId },
+    { staleTime: STALE_TIME, enabled: !!sheetId, keepPreviousData: true },
   );
 
   const { mutate: purchaseHint } = useMutation(
@@ -62,6 +67,7 @@ function StoryPlayPage() {
       },
       onError: (e: AxiosError<MessageRes>) => {
         console.log('error:', e.message);
+        alert(e.response?.data.message);
       },
     },
   );
@@ -85,6 +91,7 @@ function StoryPlayPage() {
       }
       setIsWrong(false);
       setAnswerReply(r.answer_reply ?? '');
+      setNextSheetId(r.next_sheet_id);
       openAnswerModal();
     },
     onError: (e: AxiosError<MessageRes>) => {
@@ -113,8 +120,8 @@ function StoryPlayPage() {
   };
 
   const handleNextSheet = () => {
-    if (sheet?.next_sheet_id) {
-      setSheetId(sheet.next_sheet_id);
+    if (nextSheetId) {
+      setSheetId(nextSheetId);
       return;
     }
     navigate(`/story/${id}`);
@@ -128,6 +135,7 @@ function StoryPlayPage() {
     if (sheet) {
       setAnswer(sheet.answer || '');
       setAnswerReply(sheet.answer_reply || '');
+      setNextSheetId(sheet.next_sheet_id);
     }
   }, [sheet]);
 
@@ -148,17 +156,11 @@ function StoryPlayPage() {
           placeholder="정답"
         />
         {sheet?.is_solved ? (
-          <button
-            className="w-[110px] px-2 py-1 bg-slate-400 rounded-md"
-            onClick={openAnswerModal}
-          >
+          <button className={BUTTON_STYLE} onClick={openAnswerModal}>
             답변 확인
           </button>
         ) : (
-          <button
-            className="w-[110px] px-2 py-1 bg-slate-400 rounded-md"
-            onClick={handleSubmitAnswer}
-          >
+          <button className={BUTTON_STYLE} onClick={handleSubmitAnswer}>
             확인
           </button>
         )}
@@ -170,18 +172,12 @@ function StoryPlayPage() {
       </div>
       <div className="flex justify-center gap-3">
         {sheet?.previous_sheet_infos && (
-          <button
-            className="w-[110px] px-2 py-1rounded-md rounded-md border border-slate-400"
-            onClick={handlePrevSheet}
-          >
+          <button className={OUTLINE_BUTTON_STYLE} onClick={handlePrevSheet}>
             이전
           </button>
         )}
         {sheet?.next_sheet_id && (
-          <button
-            className="w-[110px] px-2 py-1 rounded-md border border-slate-400"
-            onClick={handleNextSheet}
-          >
+          <button className={OUTLINE_BUTTON_STYLE} onClick={handleNextSheet}>
             다음
           </button>
         )}
@@ -190,7 +186,7 @@ function StoryPlayPage() {
         <AnswerModal
           answerReply={answerReply}
           answer={answer}
-          isEnd={!sheet?.next_sheet_id}
+          isEnd={!nextSheetId}
           handleClose={closeAnswerModal}
           handleNextSheet={handleNextSheet}
         />
