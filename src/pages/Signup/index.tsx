@@ -76,11 +76,8 @@ function SignupPage() {
   };
 
   return (
-    <div>
-      <form
-        className="flex flex-col mx-auto my-10 gap-4 max-w-[800px]"
-        onSubmit={handleSubmit}
-      >
+    <div className="w-[90%] max-w-[800px] mx-auto">
+      <form className="flex flex-col my-10 gap-4" onSubmit={handleSubmit}>
         <Input
           type="text"
           name="username"
@@ -128,15 +125,20 @@ function SignupPage() {
         />
       </form>
       {isChecked && (
-        <div>
+        <>
           <Input
             type="text"
             name="one_time_token"
             onChange={handleInputChange}
             placeholder="인증번호"
           />
-          <button onClick={handleCodeSubmit}>확인</button>
-        </div>
+          <button
+            className="button bg-slate-300 mt-[10px]"
+            onClick={handleCodeSubmit}
+          >
+            확인
+          </button>
+        </>
       )}
     </div>
   );
