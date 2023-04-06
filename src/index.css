@@ -17,12 +17,17 @@ code {
     monospace;
 }
 
+button {
+  font-weight: 500;
+}
+
 @layer utilities {
   .button {
     width: 100%;
     height: 2.25rem;
     border-radius: 8px;
     cursor: pointer;
+    font-weight: 500;
   }
   .input {
     width: 100%;
@@ -39,5 +44,6 @@ code {
     display: block;
     text-align: center;
     line-height: 2.25rem;
+    font-weight: 500;
   }
 }
