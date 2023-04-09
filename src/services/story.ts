@@ -24,6 +24,9 @@ export const getStorySheet = (id: number) =>
 export const submitSheetAnswer = (data: SubmitSheetAnswerReq) =>
   UserClient.post<SubmitSheetAnswerRes>(`/v1/story/submit_answer`, data);
 
+export const solveStoryHistory = (id: number) =>
+  UserClient.delete(`/v1/story/${id}/solve-history`);
+
 interface GetStroyListReq {
   search?: string;
   page?: number;

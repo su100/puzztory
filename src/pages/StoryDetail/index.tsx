@@ -9,9 +9,11 @@ import {
   getStory,
   likeStory as _likeStory,
   unlikeStory as _unlikeStory,
+  solveStoryHistory,
 } from 'services/story';
 import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
+import { MessageRes } from 'services/type';
 
 const STALE_TIME = 5 * 1000;
 const UP = 'up' as const;
@@ -41,6 +43,7 @@ function StoryDetailPage() {
       console.log(e);
     },
   });
+
   const { mutate: unlikeStory } = useMutation(() => _unlikeStory(Number(id)), {
     onSuccess: () => {
       alert('좋아요 취소 성공');
@@ -50,6 +53,19 @@ function StoryDetailPage() {
       console.log(e);
     },
   });
+
+  const { mutate: removeStoryHistory } = useMutation(
+    () => solveStoryHistory(Number(id)),
+    {
+      onSuccess: () => {
+        alert('플레이 기록 초기화 성공');
+      },
+      onError: (e: AxiosError<MessageRes>) => {
+        console.log(e);
+        alert(e.response?.data.message);
+      },
+    },
+  );
 
   const updateLike = (type: UpdateType) => {
     setLikeCount((s) => s + (type === UP ? 1 : -1));
@@ -108,6 +124,11 @@ function StoryDetailPage() {
         >
           플레이
         </Link>
+        {'플레이한 적 있는지' && (
+          <button className="button" onClick={() => removeStoryHistory()}>
+            플레이 초기화
+          </button>
+        )}
       </div>
     </div>
   );
