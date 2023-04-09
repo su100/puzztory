@@ -125,7 +125,10 @@ function StoryDetailPage() {
           플레이
         </Link>
         {'플레이한 적 있는지' && (
-          <button className="button" onClick={() => removeStoryHistory()}>
+          <button
+            className="mt-2 button border border-slate-300"
+            onClick={() => removeStoryHistory()}
+          >
             플레이 초기화
           </button>
         )}
