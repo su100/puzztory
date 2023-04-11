@@ -136,6 +136,7 @@ function StoryPlayPage() {
       setAnswer(sheet.answer || '');
       setAnswerReply(sheet.answer_reply || '');
       setNextSheetId(sheet.next_sheet_id);
+      setIsWrong(false);
     }
   }, [sheet]);
 
