@@ -14,7 +14,13 @@ function AuthGuard() {
   const location = useLocation();
 
   if (!isLoggedIn) {
-    return <Navigate to="/login" state={{ redirectPath: location.pathname }} />;
+    return (
+      <Navigate
+        to="/login"
+        replace
+        state={{ redirectPath: location.pathname }}
+      />
+    );
   }
 
   return <Outlet />;
