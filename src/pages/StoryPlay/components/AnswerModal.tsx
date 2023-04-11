@@ -22,10 +22,10 @@ function AnswerModal({
 
   return (
     <PlayModal handleClose={handleClose}>
-      <div className="whitespace-pre-wrap p-4 border border-slate-300 rounded-sm">
+      <div className="whitespace-pre-wrap max-h-[calc(100%-80px)] p-4 border border-slate-300 rounded-sm overflow-auto">
         {answerReply}
       </div>
-      <div className="text-center">
+      <div className="text-center min-h-[80px]">
         <p className="my-4 text-sm text-green-600 font-bold">정답: {answer}</p>
         <button
           className="mx-auto px-3 py-1 rounded-md w-[100px] text-sm bg-slate-300"
