@@ -1,5 +1,5 @@
 import { useMutation } from 'react-query';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import Input from 'components/Input';
@@ -55,8 +55,12 @@ function SignupPage() {
     },
   });
 
+  const hasAllValue = useMemo(() => {
+    const { one_time_token, ...form } = formState;
+    return Object.values(form).every((v) => v !== '');
+  }, [formState]);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    console.log('handleSubmit');
     e.preventDefault();
     validateForm(formState);
   };
@@ -120,8 +124,11 @@ function SignupPage() {
           errorMsg={formErrorState?.email}
         />
         <input
-          className="rounded-[5px] p-2 border-2 border-solid border-gray-300"
+          className={`rounded-[5px] p-2 border-2 border-solid border-slate-300 text-slate-400 ${
+            !hasAllValue ? 'bg-slate-200' : ''
+          }`}
           type="submit"
+          disabled={!hasAllValue}
           value="이메일 인증번호 전송"
         />
       </form>
@@ -134,7 +141,10 @@ function SignupPage() {
             placeholder="인증번호"
           />
           <button
-            className="button bg-slate-300 mt-[10px]"
+            className={`w-full rounded-[5px] p-2 border-2 border-solid border-slate-400 text-slate-400  mt-[10px] ${
+              formState.one_time_token === '' ? 'bg-slate-200' : ''
+            }`}
+            disabled={formState.one_time_token === ''}
             onClick={handleCodeSubmit}
           >
             확인
