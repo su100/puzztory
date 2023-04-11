@@ -136,11 +136,12 @@ function StoryPlayPage() {
       setAnswer(sheet.answer || '');
       setAnswerReply(sheet.answer_reply || '');
       setNextSheetId(sheet.next_sheet_id);
+      setIsWrong(false);
     }
   }, [sheet]);
 
   return (
-    <div>
+    <div className="pb-20">
       <div className="px-2 py-3 text-right">
         <button onClick={openHintModal}>
           <img src={hintIcon} width="32" height="32" alt="hint" />
