@@ -141,7 +141,7 @@ function StoryPlayPage() {
   }, [sheet]);
 
   return (
-    <div>
+    <div className="pb-20">
       <div className="px-2 py-3 text-right">
         <button onClick={openHintModal}>
           <img src={hintIcon} width="32" height="32" alt="hint" />
