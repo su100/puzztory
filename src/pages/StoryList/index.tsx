@@ -14,13 +14,14 @@ function StoryListPage() {
   const qs = new URLSearchParams(location.search);
   const search = qs.get('q');
 
-  const { data } = useInfiniteQuery(
+  const { data, hasNextPage, fetchNextPage } = useInfiniteQuery(
     [...GET_STORY_LIST, search],
     ({ pageParam = 1 }) =>
       getStoryList({ search: search!, page: pageParam, size: SIZE }),
     {
       enabled: !!search,
-      getNextPageParam: (_, allPages) => allPages.length + 1,
+      getNextPageParam: (lastPage, allPages) =>
+        lastPage.stories.length < SIZE ? undefined : allPages.length + 1,
       staleTime: STALE_TIME,
     },
   );
@@ -31,6 +32,14 @@ function StoryListPage() {
       <h1 className="title">&apos;{search}&apos; 검색 결과</h1>
       {data?.pages.map((s) =>
         s.stories.map((story) => <StoryCard key={story.id} story={story} />),
+      )}
+      {hasNextPage && (
+        <button
+          className="button text-slate-500 border border-slate-400"
+          onClick={() => fetchNextPage()}
+        >
+          더보기
+        </button>
       )}
     </div>
   );
