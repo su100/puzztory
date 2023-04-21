@@ -19,7 +19,6 @@ function StoryListPage() {
     ({ pageParam = 1 }) =>
       getStoryList({ search: search!, page: pageParam, size: SIZE }),
     {
-      enabled: !!search,
       getNextPageParam: (lastPage, allPages) =>
         lastPage.stories.length < SIZE ? undefined : allPages.length + 1,
       staleTime: STALE_TIME,
@@ -29,7 +28,9 @@ function StoryListPage() {
   return (
     <div className="p-4 flex flex-col gap-4">
       <SearchInput />
-      <h1 className="title">&apos;{search}&apos; 검색 결과</h1>
+      <h1 className="title">
+        {search ? '&apos;{search}&apos; 검색 결과' : '전체 Puzzle'}
+      </h1>
       {data?.pages.map((s) =>
         s.stories.map((story) => <StoryCard key={story.id} story={story} />),
       )}
