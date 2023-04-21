@@ -12,9 +12,15 @@ function MainPage() {
       <div className="p-4">
         <SearchInput />
         <h2 className="font-bold text-lg my-2">전체 Puzzle</h2>
-        {data?.pages.map((p) =>
-          p.stories.map((s) => <StoryCard key={s.id} story={s} />),
-        )}
+        <ul className="flex flex-col gap-4">
+          {data?.pages.map((p) =>
+            p.stories.map((s) => (
+              <li key={s.id}>
+                <StoryCard story={s} />
+              </li>
+            )),
+          )}
+        </ul>
       </div>
     </>
   );
