@@ -14,9 +14,11 @@ function StoryCard({ story }: StoryCardProps) {
         height="64"
         alt={`${story.title} 썸네일`}
       />
-      <div>
-        <h3 className="font-bold text-sm">{story.title}</h3>
-        <p className="text-xs">{story.description}</p>
+      <div className="w-[calc(100%-64px)]">
+        <h3 className="font-bold text-sm ellipsis">{story.title}</h3>
+        <p className="text-xs multi-ellipsis line-clamp-3">
+          {story.description}
+        </p>
       </div>
     </Link>
   );
