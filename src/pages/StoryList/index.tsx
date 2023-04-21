@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import StoryCard from 'components/StoryCard';
 import { useInfiniteQuery } from 'react-query';
 import SearchInput from 'components/SearchInput';
@@ -11,6 +11,7 @@ const STALE_TIME = 5 * 1000;
 
 function StoryListPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const qs = new URLSearchParams(location.search);
   const search = qs.get('q');
 
@@ -25,11 +26,15 @@ function StoryListPage() {
     },
   );
 
+  useEffect(() => {
+    if (search?.trim() === '') navigate('/story');
+  }, [search]);
+
   return (
     <div className="p-4 flex flex-col gap-4">
       <SearchInput />
       <h1 className="title">
-        {search ? '&apos;{search}&apos; 검색 결과' : '전체 Puzzle'}
+        {search ? `'${search}' 검색 결과` : '전체 Puzzle'}
       </h1>
       {data?.pages.map((s) =>
         s.stories.map((story) => <StoryCard key={story.id} story={story} />),
