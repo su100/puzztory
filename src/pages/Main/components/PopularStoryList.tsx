@@ -7,13 +7,13 @@ function PopularStoryList() {
   const { data } = useQuery(GET_POPULAR_STORY_LIST, getPopularStoryList);
 
   return (
-    <>
-      <h2 className="font-bold text-lg my-2 flex justify-between items-end">
+    <div className="mb-6">
+      <h2 className="font-extrabold text-lg my-2 flex justify-between items-end">
         인기 Puzzle
       </h2>
       <ul className="flex gap-4 overflow-x-auto flex-nowrap scrollbar">
         {data?.popular_stories?.map((s) => (
-          <li key={s.title} className="max-w-[120px] rounded-md">
+          <li key={s.title} className="min-w-[120px] rounded-md">
             <Link to={`/story/${s.story_id}`}>
               <img
                 width="120"
@@ -21,14 +21,14 @@ function PopularStoryList() {
                 src={s.image || defaultImg}
                 alt={`${s.story_id} 썸네일`}
               />
-              <h3 className="mt-1 text-center text-sm font-medium ellipsis">
+              <h3 className="mt-1 text-center text-sm font-bold ellipsis">
                 {s.title}
               </h3>
             </Link>
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 
