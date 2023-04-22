@@ -36,21 +36,21 @@ function StoryDetailPage() {
 
   const { mutate: likeStory } = useMutation(() => _likeStory(Number(id)), {
     onSuccess: () => {
-      alert('좋아요 성공');
       updateLike(UP);
     },
-    onError: (e: AxiosError) => {
+    onError: (e: AxiosError<MessageRes>) => {
       console.log(e);
+      alert(e.response?.data.message);
     },
   });
 
   const { mutate: unlikeStory } = useMutation(() => _unlikeStory(Number(id)), {
     onSuccess: () => {
-      alert('좋아요 취소 성공');
       updateLike(DOWN);
     },
-    onError: (e: AxiosError) => {
+    onError: (e: AxiosError<MessageRes>) => {
       console.log(e);
+      alert(e.response?.data.message);
     },
   });
 
