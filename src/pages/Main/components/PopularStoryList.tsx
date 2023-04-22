@@ -21,7 +21,9 @@ function PopularStoryList() {
                 src={s.image || defaultImg}
                 alt={`${s.story_id} 썸네일`}
               />
-              <h3 className="text-sm font-medium ellipsis">{s.title}</h3>
+              <h3 className="mt-1 text-center text-sm font-medium ellipsis">
+                {s.title}
+              </h3>
             </Link>
           </li>
         ))}
