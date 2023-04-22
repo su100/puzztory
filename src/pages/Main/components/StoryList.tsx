@@ -11,7 +11,7 @@ interface StoryListProps {
 function StoryList({ title, stories, link }: StoryListProps) {
   return (
     <>
-      <h2 className="font-bold text-lg my-2 flex justify-between items-end">
+      <h2 className="font-extrabold text-lg my-2 flex justify-between items-baseline">
         {title}
         <Link
           to={link}
