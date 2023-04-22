@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 import { GET_POPULAR_STORY_LIST, getPopularStoryList } from 'services/story';
 import defaultImg from 'assets/img/default.png';
 
+const STALE_TIME = 5 * 1000;
+
 function PopularStoryList() {
-  const { data } = useQuery(GET_POPULAR_STORY_LIST, getPopularStoryList);
+  const { data } = useQuery(GET_POPULAR_STORY_LIST, getPopularStoryList, {
+    staleTime: STALE_TIME,
+  });
 
   return (
     <div className="mb-6">

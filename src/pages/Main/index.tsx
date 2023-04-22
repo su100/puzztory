@@ -12,8 +12,12 @@ import {
 import StoryList from './components/StoryList';
 import PopularStoryList from './components/PopularStoryList';
 
+const STALE_TIME = 5 * 1000;
+
 function MainPage() {
-  const { data: allStory } = useQuery(GET_STORY_LIST, () => getStoryList());
+  const { data: allStory } = useQuery(GET_STORY_LIST, () => getStoryList(), {
+    staleTime: STALE_TIME,
+  });
 
   return (
     <>
