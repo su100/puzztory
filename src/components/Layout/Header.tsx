@@ -5,7 +5,7 @@ function Header() {
   const location = useLocation();
   const { isLoggedIn, logout } = useAuthStore();
   return (
-    <header className="flex justify-between items-center px-4 py-3">
+    <header className="sticky top-0 bg-white flex justify-between items-center px-4 py-3">
       <Link to="/" className="font-black text-black text-2xl">
         Puzztory
       </Link>
