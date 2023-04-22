@@ -1,15 +1,9 @@
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
-import {
-  GET_POPULAR_STORY_LIST,
-  IPopularStory,
-  getPopularStoryList,
-} from 'services/story';
+import { GET_POPULAR_STORY_LIST, getPopularStoryList } from 'services/story';
 
 function PopularStoryList() {
-  const { data } = useQuery(GET_POPULAR_STORY_LIST, () =>
-    getPopularStoryList(),
-  );
+  const { data } = useQuery(GET_POPULAR_STORY_LIST, getPopularStoryList);
 
   return (
     <>

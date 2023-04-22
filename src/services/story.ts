@@ -7,7 +7,7 @@ export const GET_STORY_SHEET = ['story', 'sheet'];
 export const getStoryList = (data?: GetStroyListReq) =>
   UserClient.get<GetStroyListRes>(`/v1/story/`, data);
 
-export const getPopularStoryList = (data?: GetStroyListReq) =>
+export const getPopularStoryList = () =>
   UserClient.get<GetPopularStroyListRes>(`/v1/story/popular`, data);
 
 export const getStory = (id: number) =>
