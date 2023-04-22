@@ -22,7 +22,7 @@ function AnswerModal({
 
   return (
     <PlayModal handleClose={handleClose}>
-      <div className="whitespace-pre-wrap max-h-[calc(100%-80px)] p-4 border border-slate-300 rounded-sm overflow-auto">
+      <div className="whitespace-pre-wrap max-h-[40vh] p-4 border scrollbar border-slate-300 rounded-sm overflow-auto text-sm">
         {answerReply}
       </div>
       <div className="text-center min-h-[80px]">

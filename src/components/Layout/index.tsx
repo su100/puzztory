@@ -6,7 +6,7 @@ function Layout() {
   return (
     <div>
       <Header />
-      <main className="min-h-[calc(100vh-176px)] pb-20">
+      <main className="min-h-[calc(100vh-176px)] max-w-[900px] mx-auto pb-20">
         <Outlet />
       </main>
       <Footer />

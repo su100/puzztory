@@ -76,4 +76,17 @@ a {
   .line-clamp-4 {
     -webkit-line-clamp: 4;
   }
+  .scrollbar::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 9999px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
 }
