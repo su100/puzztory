@@ -8,7 +8,7 @@ export const getStoryList = (data?: GetStroyListReq) =>
   UserClient.get<GetStroyListRes>(`/v1/story/`, data);
 
 export const getPopularStoryList = () =>
-  UserClient.get<GetPopularStroyListRes>(`/v1/story/popular`, data);
+  UserClient.get<GetPopularStroyListRes>(`/v1/story/popular`);
 
 export const getStory = (id: number) =>
   UserClient.get<IStoryDetail>(`/v1/story/${id}`);
