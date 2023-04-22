@@ -1,10 +1,14 @@
 import { UserClient } from 'utils/api';
 
 export const GET_STORY_LIST = ['story'];
+export const GET_POPULAR_STORY_LIST = ['story', 'popular'];
 export const GET_STORY_SHEET = ['story', 'sheet'];
 
 export const getStoryList = (data?: GetStroyListReq) =>
   UserClient.get<GetStroyListRes>(`/v1/story/`, data);
+
+export const getPopularStoryList = (data?: GetStroyListReq) =>
+  UserClient.get<GetPopularStroyListRes>(`/v1/story/popular`, data);
 
 export const getStory = (id: number) =>
   UserClient.get<IStoryDetail>(`/v1/story/${id}`);
@@ -43,6 +47,16 @@ export interface IStory {
   description: string;
   image: string;
   background_image: string;
+}
+
+interface GetPopularStroyListRes {
+  popular_stories: IPopularStory[];
+}
+
+export interface IPopularStory {
+  story_id: number;
+  title: string;
+  image: string;
 }
 
 interface IStoryDetail extends IStory {
