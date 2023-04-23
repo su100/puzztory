@@ -57,7 +57,7 @@ function LoginPage() {
   }, [location]);
 
   return (
-    <div className="px-7 mx-auto max-w-[600px] flex flex-col gap-4 pt-[50px]">
+    <div className="px-7 mx-auto max-w-[600px] flex flex-col gap-3 pt-[50px]">
       <h1 className="title">로그인</h1>
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <Input
