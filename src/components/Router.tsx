@@ -28,9 +28,10 @@ function AuthGuard() {
 
 function GuestGuard() {
   const { isLoggedIn } = useAuthStore();
+  const location = useLocation();
 
   if (isLoggedIn) {
-    return <Navigate to="/" replace />;
+    return <Navigate to={location.state.redirectPath || '/'} replace />;
   }
 
   return <Outlet />;

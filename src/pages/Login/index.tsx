@@ -27,7 +27,6 @@ function LoginPage() {
   const { mutate: loginUser } = useMutation(requestLogin, {
     onSuccess: (res: LoginRes) => {
       login(res.accessToken);
-      navigate(locationState?.redirectPath || '/', { replace: true });
     },
     onError: (e: AxiosError<LoginErrRes>) => {
       console.log('error:', e);
