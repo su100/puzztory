@@ -99,8 +99,8 @@ a {
   }
   .login-btn {
     padding: 0 8px;
-    width: 100%;
     height: 56px;
+    flex: 1;
     min-width: 200px;
     display: flex;
     align-items: center;
@@ -110,5 +110,34 @@ a {
     padding-right: 15px;
     width: calc(100% - 56px);
     text-align: center;
+  }
+  .center-line {
+    position: relative;
+    height: 30px;
+    text-align: center;
+  }
+  .center-line:before,
+  .center-line:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 50%;
+    height: 1px;
+    background-color: rgb(163 163 163);
+  }
+  .center-line:before {
+    left: 0;
+  }
+  .center-line:after {
+    right: 0;
+  }
+  .center-line-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 3px 10px 0;
+    transform: translate(-50%, -50%);
+    background: white;
+    z-index: 10;
   }
 }

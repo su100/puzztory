@@ -79,7 +79,10 @@ function LoginPage() {
       <Link to="/signup" className="link-button bg-slate-400">
         회원가입
       </Link>
-      <div className="flex  gap-2">
+      <h2 className="center-line mt-5 text-neutral-400 text-center">
+        <span className="center-line-text ">소셜 로그인</span>
+      </h2>
+      <div className="flex flex-row flex-wrap gap-2">
         <button className="kakao-color login-btn">
           <img src={kakaoIcon} width="56" height="56" alt="카카오" />
           <span className="login-btn-text">카카오 로그인</span>
