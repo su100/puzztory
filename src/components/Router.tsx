@@ -26,13 +26,25 @@ function AuthGuard() {
   return <Outlet />;
 }
 
+function GuestGuard() {
+  const { isLoggedIn } = useAuthStore();
+
+  if (isLoggedIn) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
+}
+
 function Router() {
   return (
     <Suspense fallback={<div></div>}>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route element={<GuestGuard />}>
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/login" element={<LoginPage />} />
+          </Route>
           <Route path="/" element={<MainPage />} />
           <Route path="/story" element={<StoryList />} />
           <Route path="/story/:id" element={<StoryDetail />} />

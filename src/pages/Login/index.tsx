@@ -4,7 +4,10 @@ import { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
 import { useAuthStore } from 'utils/auth';
 import Input from 'components/Input';
+
 import { requestLogin, LoginErrRes, LoginRes } from 'services/auth';
+import kakaoIcon from 'assets/img/login/kakao.svg';
+import naverIcon from 'assets/img/login/naver.png';
 
 interface LoginStateType {
   username: string;
@@ -23,8 +26,6 @@ function LoginPage() {
 
   const { mutate: loginUser } = useMutation(requestLogin, {
     onSuccess: (res: LoginRes) => {
-      // TODO: 이전 페이지 이동
-      // TODO: accessToken 로그인 처리
       login(res.accessToken);
       navigate(locationState?.redirectPath || '/', { replace: true });
     },
@@ -47,6 +48,10 @@ function LoginPage() {
     setState((s) => ({ ...s, [name]: value }));
   };
 
+  const handleSnsLogin = () => {
+    alert('지원 예정인 기능입니다.');
+  };
+
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     const type = query.get('type');
@@ -54,7 +59,7 @@ function LoginPage() {
   }, [location]);
 
   return (
-    <div className="mx-10 flex flex-col gap-4 pt-[50px]">
+    <div className="px-7 mx-auto max-w-[600px] flex flex-col gap-3 pt-[50px]">
       <h1 className="title">로그인</h1>
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <Input
@@ -76,6 +81,19 @@ function LoginPage() {
       <Link to="/signup" className="link-button bg-slate-400">
         회원가입
       </Link>
+      <h2 className="center-line mt-5 text-neutral-400 text-center">
+        <span className="center-line-text ">소셜 로그인</span>
+      </h2>
+      <div className="flex flex-row flex-wrap gap-2">
+        <button className="kakao-color login-btn" onClick={handleSnsLogin}>
+          <img src={kakaoIcon} width="56" height="56" alt="카카오" />
+          <span className="login-btn-text">카카오 로그인</span>
+        </button>
+        <button className="naver-color login-btn" onClick={handleSnsLogin}>
+          <img src={naverIcon} width="56" height="56" alt="네이버" />
+          <span className="login-btn-text">네이버 로그인</span>
+        </button>
+      </div>
     </div>
   );
 }

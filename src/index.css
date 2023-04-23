@@ -89,4 +89,55 @@ a {
   .scrollbar::-webkit-scrollbar-track {
     background-color: #f1f1f1;
   }
+  .kakao-color {
+    background: #fee500;
+    color: #000;
+  }
+  .naver-color {
+    background: #03c75a;
+    color: #fff;
+  }
+  .login-btn {
+    padding: 0 8px;
+    height: 56px;
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+  }
+  .login-btn-text {
+    padding-right: 15px;
+    width: calc(100% - 56px);
+    text-align: center;
+  }
+  .center-line {
+    position: relative;
+    height: 30px;
+    text-align: center;
+  }
+  .center-line:before,
+  .center-line:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 50%;
+    height: 1px;
+    background-color: rgb(163 163 163);
+  }
+  .center-line:before {
+    left: 0;
+  }
+  .center-line:after {
+    right: 0;
+  }
+  .center-line-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 3px 10px 0;
+    transform: translate(-50%, -50%);
+    background: white;
+    z-index: 10;
+  }
 }
