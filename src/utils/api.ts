@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { useAuthStore } from './auth';
 
 const baseURL = process.env.REACT_APP_API_BASE_URL;
@@ -23,7 +23,17 @@ const handleCheckAccessToken = <T extends AxiosRequestConfig>(config: T): T => {
   return config;
 };
 
+const handle_401 = (error: AxiosError) => {
+  console.log('err', error);
+  if (error.response?.status === 401) {
+    const { logout } = useAuthStore.getState();
+    logout();
+  }
+  return Promise.reject(error);
+};
+
 UserClientBase.interceptors.request.use(handleCheckAccessToken);
+UserClientBase.interceptors.response.use(undefined, handle_401);
 
 const ApiClient = {
   get: <T>(url: string, params?: any, config?: AxiosRequestConfig) =>
