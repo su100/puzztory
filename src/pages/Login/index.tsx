@@ -26,8 +26,6 @@ function LoginPage() {
 
   const { mutate: loginUser } = useMutation(requestLogin, {
     onSuccess: (res: LoginRes) => {
-      // TODO: 이전 페이지 이동
-      // TODO: accessToken 로그인 처리
       login(res.accessToken);
       navigate(locationState?.redirectPath || '/', { replace: true });
     },
