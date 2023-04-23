@@ -50,6 +50,10 @@ function LoginPage() {
     setState((s) => ({ ...s, [name]: value }));
   };
 
+  const handleSnsLogin = () => {
+    alert('지원 예정인 기능입니다.');
+  };
+
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     const type = query.get('type');
@@ -83,11 +87,11 @@ function LoginPage() {
         <span className="center-line-text ">소셜 로그인</span>
       </h2>
       <div className="flex flex-row flex-wrap gap-2">
-        <button className="kakao-color login-btn">
+        <button className="kakao-color login-btn" onClick={handleSnsLogin}>
           <img src={kakaoIcon} width="56" height="56" alt="카카오" />
           <span className="login-btn-text">카카오 로그인</span>
         </button>
-        <button className="naver-color login-btn">
+        <button className="naver-color login-btn" onClick={handleSnsLogin}>
           <img src={naverIcon} width="56" height="56" alt="네이버" />
           <span className="login-btn-text">네이버 로그인</span>
         </button>
