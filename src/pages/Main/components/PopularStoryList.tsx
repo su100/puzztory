@@ -17,11 +17,11 @@ function PopularStoryList() {
       </h2>
       <ul className="flex gap-4 overflow-x-auto flex-nowrap scrollbar">
         {data?.popular_stories?.map((s) => (
-          <li key={s.title} className="min-w-[120px] rounded-md">
+          <li key={s.title} className="w-[100px] min-w-[100px] rounded-md">
             <Link to={`/story/${s.story_id}`}>
               <img
-                width="120"
-                height="120"
+                width="100"
+                height="100"
                 src={s.image || defaultImg}
                 alt={`${s.story_id} 썸네일`}
               />
