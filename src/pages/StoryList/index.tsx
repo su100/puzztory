@@ -5,6 +5,7 @@ import { useInfiniteQuery } from 'react-query';
 import SearchInput from 'components/SearchInput';
 
 import { GET_STORY_LIST, getStoryList } from 'services/story';
+import SkeletonStoryList from 'components/skeleton/SkeletonStoryList';
 
 const SIZE = 20;
 const STALE_TIME = 5 * 1000;
@@ -15,7 +16,7 @@ function StoryListPage() {
   const qs = new URLSearchParams(location.search);
   const search = qs.get('q');
 
-  const { data, hasNextPage, fetchNextPage } = useInfiniteQuery(
+  const { data, hasNextPage, fetchNextPage, isLoading } = useInfiniteQuery(
     [...GET_STORY_LIST, search],
     ({ pageParam = 1 }) =>
       getStoryList({ search: search!, page: pageParam, size: SIZE }),
@@ -36,8 +37,12 @@ function StoryListPage() {
       <h1 className="title">
         {search ? `'${search}' 검색 결과` : '전체 Puzzle'}
       </h1>
-      {data?.pages.map((s) =>
-        s.stories.map((story) => <StoryCard key={story.id} story={story} />),
+      {isLoading ? (
+        <SkeletonStoryList />
+      ) : (
+        data?.pages.map((s) =>
+          s.stories.map((story) => <StoryCard key={story.id} story={story} />),
+        )
       )}
       {hasNextPage && (
         <button
