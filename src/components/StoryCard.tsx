@@ -8,9 +8,9 @@ interface StoryCardProps {
 
 function StoryCard({ story }: StoryCardProps) {
   return (
-    <Link to={`/story/${story.id}`} className="flex align-center gap-2">
+    <Link to={`/story/${story.id}`} className="flex items-center gap-2">
       <img
-        className="rounded-[5px]"
+        className="rounded-[5px] max-w-[64px] max-h-[64px]"
         src={story.image || defaultImg}
         width="64"
         height="64"

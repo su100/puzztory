@@ -1,23 +1,21 @@
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import SearchInput from 'components/SearchInput';
-import StoryCard from 'components/StoryCard';
-
-import {
-  getStoryList,
-  GET_STORY_LIST,
-  GET_POPULAR_STORY_LIST,
-  getPopularStoryList,
-} from 'services/story';
 import StoryList from './components/StoryList';
 import PopularStoryList from './components/PopularStoryList';
+
+import { getStoryList, GET_STORY_LIST } from 'services/story';
 
 const STALE_TIME = 5 * 1000;
 
 function MainPage() {
-  const { data: allStory } = useQuery(GET_STORY_LIST, () => getStoryList(), {
-    staleTime: STALE_TIME,
-  });
+  const { data: allStory, isLoading } = useQuery(
+    GET_STORY_LIST,
+    () => getStoryList(),
+    {
+      staleTime: STALE_TIME,
+    },
+  );
 
   return (
     <>
@@ -26,6 +24,7 @@ function MainPage() {
         <SearchInput />
         <PopularStoryList />
         <StoryList
+          isLoading={isLoading}
           title="전체 Puzzle"
           stories={allStory?.stories}
           link="/story"
