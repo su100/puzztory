@@ -5,15 +5,15 @@ export const SKELETON_ANIMATION_STYLE =
 
 function SkeletonStory() {
   return (
-    <div className="flex items-center gap-2 relative">
-      <div className={`${SKELETON_STYLE} rounded-[5px] w-[64px] h-[64px]`}>
+    <div className="flex items-start gap-2 relative">
+      <div className={`${SKELETON_STYLE} rounded-[5px] w-[68px] h-[68px]`}>
         <div className={`${SKELETON_ANIMATION_STYLE} rounded-[5px]`}></div>
       </div>
-      <div className="w-[calc(100%-64px)] relative">
-        <h3 className={`${SKELETON_STYLE} mb-1 w-4/5 h-4 rounded-sm`}>
+      <div className="w-[calc(100%-68px)] relative">
+        <h3 className={`${SKELETON_STYLE} mb-[3px] w-4/5 h-4 rounded-sm`}>
           <span className={`${SKELETON_ANIMATION_STYLE} rounded-sm`}></span>
         </h3>
-        <p className={`${SKELETON_STYLE} w-full h-9 rounded-sm`}>
+        <p className={`${SKELETON_STYLE} w-full h-12 rounded-sm`}>
           <span className={`${SKELETON_ANIMATION_STYLE} rounded-sm`}></span>
         </p>
       </div>
