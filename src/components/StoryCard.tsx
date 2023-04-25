@@ -20,8 +20,6 @@ function StoryCard({ story }: StoryCardProps) {
         <h3 className="font-bold text-sm ellipsis">{story.title}</h3>
         <p className="text-xs multi-ellipsis line-clamp-3">
           {story.description}
-          {story.description}
-          {story.description}
         </p>
       </div>
     </Link>
