@@ -6,7 +6,7 @@ export const getBannerList = () =>
   ApiClient.get<GetBannerListRes>(`/v1/banner/`);
 
 export const getBanner = (banner_id: number) =>
-  ApiClient.get<IBannerDetail>(`/v1/banner`, { banner_id });
+  ApiClient.get<IBannerDetail>(`/v1/banner/${banner_id}`);
 
 export interface GetBannerListRes {
   banners: IBanner[];
