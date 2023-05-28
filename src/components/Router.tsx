@@ -31,7 +31,7 @@ function GuestGuard() {
   const location = useLocation();
 
   if (isLoggedIn) {
-    return <Navigate to={location.state.redirectPath || '/'} replace />;
+    return <Navigate to={location.state?.redirectPath || '/'} replace />;
   }
 
   return <Outlet />;
