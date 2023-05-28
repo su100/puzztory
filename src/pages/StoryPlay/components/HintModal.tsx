@@ -44,8 +44,8 @@ function HintModal({ hintList, purchaseHint, handleClose }: AnswerModalProps) {
   if (!hintList) return <></>;
   return (
     <PlayModal handleClose={handleClose}>
-      <div className="h-[100%] flex flex-col justify-between">
-        <h2 className="font-bold text-xl text-center ">힌트</h2>
+      <div className="h-[100%] flex flex-col justify-between gap-4">
+        <h2 className="font-bold text-xl text-center">힌트</h2>
         <div className="h-[90%] flex flex-col gap-3 overflow-y-auto">
           {hintList.length === 0 ? (
             <div>힌트가 없습니다.</div>
