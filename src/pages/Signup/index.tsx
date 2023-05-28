@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query';
 import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import Input from 'components/Input';
 import {
@@ -25,7 +25,9 @@ function SignupPage() {
   });
   const [formErrorState, setFormErrorState] = useState<SignUpValidateErrRes>();
   const [isChecked, setIsChecked] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
+
   const { mutate: sendCode } = useMutation(signUpCheck, {
     onSuccess: () => {
       setIsChecked(true);
@@ -48,7 +50,7 @@ function SignupPage() {
   const { mutate: validateToken } = useMutation(signUpValidateToken, {
     onSuccess: (res) => {
       alert(res.message);
-      navigate('/login');
+      navigate('/login', { state: location.state });
     },
     onError: (e: AxiosError<MessageRes>) => {
       alert(e.response?.data.message);
