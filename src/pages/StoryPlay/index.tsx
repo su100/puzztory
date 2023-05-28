@@ -74,6 +74,8 @@ function StoryPlayPage() {
 
   const sheet = useMemo(() => data || startSheet, [data, startSheet]);
 
+  console.log('sheet', sheet);
+
   const { data: hint } = useQuery(
     [...GET_HINT, sheetId],
     () => getHintList(sheet!.sheet_id), // sheetId 사용시 첫 시트에서는 빈값
@@ -172,7 +174,7 @@ function StoryPlayPage() {
         )}
       </div>
       <div className="flex justify-center gap-3">
-        {sheet?.previous_sheet_infos && (
+        {(sheet?.previous_sheet_infos.length || 0) > 0 && (
           <button className={OUTLINE_BUTTON_STYLE} onClick={handlePrevSheet}>
             이전
           </button>

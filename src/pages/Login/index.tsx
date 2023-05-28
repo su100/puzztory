@@ -21,7 +21,6 @@ function LoginPage() {
   });
   const location = useLocation();
   const locationState = location.state;
-  const navigate = useNavigate();
   const { login } = useAuthStore();
 
   const { mutate: loginUser } = useMutation(requestLogin, {
@@ -77,7 +76,11 @@ function LoginPage() {
           로그인
         </button>
       </form>
-      <Link to="/signup" className="link-button bg-slate-400">
+      <Link
+        to="/signup"
+        state={locationState}
+        className="link-button bg-slate-400"
+      >
         회원가입
       </Link>
       <h2 className="center-line mt-5 text-neutral-400 text-center">
