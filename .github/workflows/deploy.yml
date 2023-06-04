@@ -16,7 +16,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
     - name: Pull Master Branch
       run: |
-        cd /var/www/puzztory/ && sudo git pull origin master -u ${{ secrets.TOKEN }}
+        cd /var/www/puzztory/ && sudo git pull origin master
     - name: Pull Master Branch
       run: |
         cd /var/www/puzztory/ && sudo yarn build
