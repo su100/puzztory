@@ -174,7 +174,7 @@ function StoryPlayPage() {
         )}
       </div>
       <div className="flex justify-center gap-3">
-        {(sheet?.previous_sheet_infos.length || 0) > 0 && (
+        {(sheet?.previous_sheet_infos?.length || 0) > 0 && (
           <button className={OUTLINE_BUTTON_STYLE} onClick={handlePrevSheet}>
             이전
           </button>
