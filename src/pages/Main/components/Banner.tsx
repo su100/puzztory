@@ -1,4 +1,8 @@
 import { useQuery } from 'react-query';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 import { GET_BANNER, getBannerList } from 'services/banner';
 
@@ -10,17 +14,19 @@ function Banner() {
   });
 
   return (
-    <div className="h-[10rem] md:h-[20rem] bg-neutral-200">
+    <Swiper
+      slidesPerView={1}
+      navigation={true}
+      modules={[Navigation]}
+      className="mySwiper"
+      onSlideChange={() => console.log('slide change')}
+      onSwiper={() => console.log()}
+    >
       {data?.banners.map((b) => (
-        <div
-          key={b.id}
-          className={`relative h-full md:h-[20rem] bg-[${
-            b.background_color || '#fff'
-          }]`}
-        >
+        <SwiperSlide key={b.id}>
           {b.background_image && (
             <img
-              className="absolute top-0 left-1/2 -translate-x-1/2 h-full"
+              className="m-auto h-full"
               src={b.background_image}
               alt={b.banner_type_name}
             />
@@ -28,9 +34,9 @@ function Banner() {
           <h3 className="absolute bottom-10 left-1/2 -translate-x-1/2 max-w-3/4 tracking-wider rounded-md px-2 py-1 text-sm bg-[rgba(0,0,0,0.5)] text-white font-semibold">
             {b.banner_type_name}
           </h3>
-        </div>
+        </SwiperSlide>
       ))}
-    </div>
+    </Swiper>
   );
 }
 
