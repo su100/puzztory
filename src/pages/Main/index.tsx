@@ -5,6 +5,7 @@ import StoryList from './components/StoryList';
 import PopularStoryList from './components/PopularStoryList';
 
 import { getStoryList, GET_STORY_LIST } from 'services/story';
+import Banner from './components/Banner';
 
 const STALE_TIME = 5 * 1000;
 
@@ -19,7 +20,7 @@ function MainPage() {
 
   return (
     <>
-      <div className="h-[15rem] md:h-[20rem] bg-sky-600">캐러셀</div>
+      <Banner />
       <div className="p-4">
         <SearchInput />
         <PopularStoryList />
